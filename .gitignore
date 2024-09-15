@@ -1,0 +1,43 @@
+# .NET Core
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.csproj.user
+*.suo
+*.user
+*.userosscache
+*.suo
+*.ncb
+*.log
+*.vs/
+*.vscode/
+
+# ASP.NET Core
+wwwroot/
+appsettings*.json
+*.db
+*.sqlite
+*.db-shm
+*.db-wal
+*.pem
+*.key
+*.pfx
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Node.js (if using front-end build tools)
+node_modules/
+
+# Npm package-lock
+package-lock.json
