@@ -6,4 +6,43 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="HotChocolate" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Abstractions" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.AspNetCore.Abstractions" Version="10.5.5" />
+    <PackageReference Include="HotChocolate.Authorization" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Data" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Diagnostics" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Execution" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Execution.Abstractions" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Language" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Language.Utf8" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Language.Web" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Server" Version="10.5.5" />
+    <PackageReference Include="HotChocolate.Types" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Types.CursorPagination" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Types.Mutations" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Types.NodaTime" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Types.Shared" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Utilities" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Utilities.DependencyInjection" Version="13.9.14" />
+    <PackageReference Include="HotChocolate.Validation" Version="13.9.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Npgsql" Version="8.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
+  </ItemGroup>
+
 </Project>
