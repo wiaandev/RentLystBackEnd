@@ -2,9 +2,41 @@ namespace RentOutBackEnd.Domain.Entities;
 
 public class PropertyPost
 {
-    public string Name { get; set; }
+    [ID]
+    public int Id { get; set; }
+
+    public RentType PropertyType { get; set; }
     
-    public int Amount { get; set; }
+    public int WeeklyAmount { get; set; }
     
-    public string Description { get; set; }
+    public int BedroomAmount { get; set; }
+    
+    public int BathroomAmount { get; set; }
+    
+    public int ParkingAmount { get; set; }
+    
+    public int? PetAmount { get; set; }
+    
+    public List<AllowedPetType>? PetType { get; set; }
+    
+    public DateTime CreatedAt { get; set; }
+    
+    public enum RentType
+    {
+        Apartment,
+        House,
+        Flat,
+        Plot,
+        Duplex,
+        Townhouse,
+    }
+    
+    public enum AllowedPetType
+    {
+        Dog,
+        Cat,
+        Hamster,
+        Bird,
+        Fish,
+    }
 }

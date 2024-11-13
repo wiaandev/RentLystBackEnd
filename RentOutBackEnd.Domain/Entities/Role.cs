@@ -4,5 +4,4 @@ namespace RentOutBackEnd.Domain.Entities;
 
 public class Role: IdentityRole<int>
 {
-    
 }

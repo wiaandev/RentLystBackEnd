@@ -1,5 +1,10 @@
 using HotChocolate.Types.NodaTime;
 using HotChocolate.Types.Pagination;
+// using HotChocolate.Types;
+// using HotChocolate.Types.NodaTime;
+// using HotChocolate.Types.Pagination;
+// using Microsoft.Extensions.DependencyInjection;
+// using HotChocolate.Execution.Configuration;
 
 namespace RentOutBackEnd.Presentation;
 
@@ -7,15 +12,15 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddGraph(this IServiceCollection services)
     {
-        services.AddGraphQLServer()
+        services
+            .AddGraphQLServer()
             .SetPagingOptions(new PagingOptions
             {
                 InferConnectionNameFromField = false,
                 IncludeTotalCount = true,
                 DefaultPageSize = 50,
             })
-            // .AddWebTypes()
-            // .AddSpatialTypes()
+            .AddTypes()
             .AddFiltering()
             .AddProjections()
             // .AddSpatialFiltering()
@@ -33,7 +38,7 @@ public static class ServiceCollectionExtensions
             //         policy.RequireAssertion(context =>
             //         {
             //             // Check if the user has the SuperAdmin role
-            //             var isSuperAdmin = context.User.IsInRole("SuperAdmin");
+            //             var isSuperAdmin = context.User.IsInRole(Constants.Roles.SuperAdmin);
             //
             //             // Check if the user has the PharmacyAdmin claim
             //             var hasPharmacyAdminClaim = context.User.HasClaim(claim =>

@@ -1,12 +1,26 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using RentOutBackEnd.Presentation;
+using RentOutBackEnd.Domain.Entities;
+using RentOutBackEnd.Domain.Options;
+using RentOutBackEnd.Domain.Services;
 
-namespace RentOutBackEnd.Domain;
+namespace RentOutBackEnd.Presentation;
 
 public static class IServiceCollectionExtensions
 {
+    
+    public static IServiceCollection ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<SeedOptions>(options =>
+            configuration.GetSection(SeedOptions.Key).Bind(options));
+        // services.AddHttpClient<GeocodingService>(client =>
+        // {
+        //     client.BaseAddress = new Uri("https://maps.googleapis.com/maps/api/");
+        // });
+        return services;
+    }
     public static IServiceCollection AddDb(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddPooledDbContextFactory<AppDbContext>(
@@ -27,5 +41,30 @@ public static class IServiceCollectionExtensions
         services.AddDbContext<AppDbContext>();
 
         return services;
+    }
+    
+    public static IServiceCollection AddCoreServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>()!.HttpContext!.User);
+        services.AddScoped<SeedService>();
+
+        return services;
+    }
+    
+    public static void AddAuth(this IServiceCollection services)
+    {
+        services.AddIdentity<User, Role>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddRoles<Role>()
+            // .AddClaimsPrincipalFactory<CustomUserClaimsPrincipalFactory>()
+            .AddDefaultTokenProviders();
+
+        services.AddAuthorizationBuilder();
+
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opts =>
+        {
+            opts.ExpireTimeSpan = new TimeSpan(1, 0, 0, 0);
+            opts.LoginPath = "/login";
+        });
     }
 }

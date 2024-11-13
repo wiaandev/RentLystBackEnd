@@ -1,3 +1,4 @@
+using RentOutBackEnd.Domain;
 using RentOutBackEnd.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,40 +15,44 @@ else
         reloadOnChange: false);
 }
 
+builder.Services.AddDb(builder.Configuration);
+builder.Services.AddCoreServices(builder.Configuration);
+builder.Services.AddAuth();
+// builder.Services.AddSingleton<ISessionContext, HttpSessionContext>();
 builder.Services.AddGraph();
+builder.Services.AddHealthChecks();
+builder.Services.AddCors();
+builder.Services.ConfigureOptions(builder.Configuration);
+// builder.Services.ConfigureOptions(builder.Configuration);
+// builder.Services.AddSingleton<AppAvailableService>();
+// builder.Services.AddSingleton<AppAvailableMiddleware>();
+// builder.Services.AddSingleton<IAppAvailableService>(ctx => ctx.GetRequiredService<AppAvailableService>());
+// builder.WebHost.AddSentry();
 
 var app = builder.Build();
 
+_ = app.Init();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+// app.UseMiddleware<AppAvailableMiddleware>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
-app.UseHttpsRedirection();
+// app.MapGroup("/api/account")
+//     .MapAccountEndpoints();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+app.MapGraphQL();
+app.MapHealthChecks("/healthz");
+app.MapFallbackToFile("index.html");
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+public partial class Program;
