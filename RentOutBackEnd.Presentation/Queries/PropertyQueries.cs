@@ -1,3 +1,4 @@
+using RentOutBackEnd.Domain;
 using RentOutBackEnd.Domain.Entities;
 
 namespace RentOutBackEnd.Presentation.Queries;

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using RentOutBackEnd.Presentation;
+using RentOutBackEnd.Domain;
 
 #nullable disable
 
@@ -192,15 +192,12 @@ namespace RentOutBackEnd.Presentation.Migrations
                     b.Property<bool>("PetsAllowed")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("PropertyPost")
-                        .HasColumnType("integer");
-
                     b.Property<int>("PropertyPostId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PropertyPost");
+                    b.HasIndex("PropertyPostId");
 
                     b.ToTable("PropertyExtrasEnumerable");
                 });
@@ -470,7 +467,7 @@ namespace RentOutBackEnd.Presentation.Migrations
                 {
                     b.HasOne("RentOutBackEnd.Domain.Entities.PropertyPost", "Property")
                         .WithMany()
-                        .HasForeignKey("PropertyPost")
+                        .HasForeignKey("PropertyPostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

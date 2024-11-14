@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using RentOutBackEnd.Domain;
 using RentOutBackEnd.Domain.Entities;
 using RentOutBackEnd.Domain.Options;
 using RentOutBackEnd.Domain.Services;
@@ -28,7 +29,7 @@ public static class IServiceCollectionExtensions
             {
                 options.UseNpgsql(
                     configuration.GetConnectionString("RentOutDatabase"),
-                    b => b.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+                    b => b.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery).MigrationsAssembly("RentOutBackEnd.Presentation")
                         .CommandTimeout(600));
                         // .UseNetTopologySuite()
                         // .UseHierarchyId());

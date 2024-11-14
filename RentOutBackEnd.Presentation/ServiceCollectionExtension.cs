@@ -1,5 +1,7 @@
 using HotChocolate.Types.NodaTime;
 using HotChocolate.Types.Pagination;
+using RentOutBackEnd.Domain;
+
 // using HotChocolate.Types;
 // using HotChocolate.Types.NodaTime;
 // using HotChocolate.Types.Pagination;

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using RentOutBackEnd.Domain;
 using RentOutBackEnd.Domain.Options;
 using RentOutBackEnd.Domain.Services;
 

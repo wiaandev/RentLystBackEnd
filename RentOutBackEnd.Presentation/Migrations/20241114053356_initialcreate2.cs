@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RentOutBackEnd.Presentation.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialcreate2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -132,7 +132,6 @@ namespace RentOutBackEnd.Presentation.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyPost = table.Column<int>(type: "integer", nullable: false),
                     PropertyPostId = table.Column<int>(type: "integer", nullable: false),
                     HasFiber = table.Column<bool>(type: "boolean", nullable: false),
                     PetsAllowed = table.Column<bool>(type: "boolean", nullable: false),
@@ -145,8 +144,8 @@ namespace RentOutBackEnd.Presentation.Migrations
                 {
                     table.PrimaryKey("PK_PropertyExtrasEnumerable", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PropertyExtrasEnumerable_PropertyPosts_PropertyPost",
-                        column: x => x.PropertyPost,
+                        name: "FK_PropertyExtrasEnumerable_PropertyPosts_PropertyPostId",
+                        column: x => x.PropertyPostId,
                         principalTable: "PropertyPosts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -329,9 +328,9 @@ namespace RentOutBackEnd.Presentation.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_PropertyExtrasEnumerable_PropertyPost",
+                name: "IX_PropertyExtrasEnumerable_PropertyPostId",
                 table: "PropertyExtrasEnumerable",
-                column: "PropertyPost");
+                column: "PropertyPostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PropertyImages_PropertyPost",

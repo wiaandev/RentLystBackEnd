@@ -7,8 +7,12 @@ namespace RentOutBackEnd.Presentation.Types;
 [ExtendObjectType<PropertyPost>]
 public class PropertyExtensions
 {
-    public async Task<PropertyExtras> GetPropertyExtras([Parent] PropertyPost propertyPost, PropertyExtrasDataloader loader)
+    public async Task<PropertyExtras?> GetPropertyExtras([Parent] PropertyPost propertyPost, PropertyExtrasDataloader loader)
     {
-        return await loader.LoadAsync(propertyPost.Id);
+        // Fetch PropertyExtras using the DataLoader
+        var propertyExtras = await loader.LoadAsync(propertyPost.Id);
+
+        // If no PropertyExtras are found, return null (or a new PropertyExtras object if you prefer)
+        return propertyExtras ?? null;  // Change this to new PropertyExtras() if you need a default object
     }
 }

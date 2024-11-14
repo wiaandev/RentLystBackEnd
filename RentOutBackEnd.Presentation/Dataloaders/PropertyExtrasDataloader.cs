@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RentOutBackEnd.Domain;
 using RentOutBackEnd.Domain.Entities;
 
 namespace RentOutBackEnd.Presentation.Dataloaders;

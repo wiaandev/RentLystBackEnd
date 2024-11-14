@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RentOutBackEnd.Domain.Entities;
 
-namespace RentOutBackEnd.Presentation;
+namespace RentOutBackEnd.Domain;
 
 public class AppDbContext: IdentityDbContext<User, Role, int>
 {
@@ -15,4 +15,15 @@ public class AppDbContext: IdentityDbContext<User, Role, int>
     public DbSet<PropertyExtras> PropertyExtrasEnumerable => this.Set<PropertyExtras>();
     public DbSet<PropertyImage> PropertyImages => this.Set<PropertyImage>();
     public DbSet<RentDuration> RentDurations => this.Set<RentDuration>();
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<PropertyExtras>()
+            .HasOne(pe => pe.Property)
+            .WithMany() // Assuming PropertyPost does not have a collection of PropertyExtras
+            .HasForeignKey(pe => pe.PropertyPostId)
+            .IsRequired(); // Ensures PropertyPostId is required and links correctly
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
