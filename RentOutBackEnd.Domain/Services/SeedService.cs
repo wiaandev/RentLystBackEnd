@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentOutBackEnd.Domain.Entities;
@@ -8,8 +9,49 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
 {
     public async Task Seed()
     {
+        await this.SeedUsers();
         await this.SeedPropertyPosts();
         await this.SeedPropertyExtras();
+    }
+
+    public async Task SeedUsers()
+    {
+        var users = new List<User>
+        {
+            new()
+            {
+                Id = 0,
+                UserName = "wiaan@stackworx.io",
+                Email = "wiaan@stackworx.io",
+                FirstName = "Wiaan",
+                LastName = "Duvenhage",
+            },
+            
+            new()
+            {
+                UserName = "charleneduvenhage@gmail.com",
+                Email = "charleneduvenhage@gmail.com",
+                FirstName = "Charlene",
+                LastName = "Duvenhage",
+            },
+        };
+        foreach (User user in users)
+        {
+            var createUser = await userManager.CreateAsync(user);
+            if (!createUser.Succeeded)
+            {
+                throw new Exception($"failed to create {createUser}");
+            }
+
+            if (user.Email != null)
+            {
+                var result = await userManager.AddClaimAsync(user, new Claim("All_Admin", "All"));
+                if (!result.Succeeded)  
+                {
+                    throw new Exception($"Failed to add claim to user: {createUser}");
+                }
+            }
+        }
     }
 
     public async Task SeedPropertyPosts()
