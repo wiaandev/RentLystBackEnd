@@ -21,7 +21,16 @@ builder.Services.AddAuth();
 // builder.Services.AddSingleton<ISessionContext, HttpSessionContext>();
 builder.Services.AddGraph();
 builder.Services.AddHealthChecks();
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", policy =>
+    {
+        policy.WithOrigins("https://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // Include if cookies or credentials are needed
+    });
+});
 builder.Services.ConfigureOptions(builder.Configuration);
 // builder.Services.ConfigureOptions(builder.Configuration);
 // builder.Services.AddSingleton<AppAvailableService>();
@@ -44,6 +53,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("AllowLocalhost");
 app.UseAuthorization();
 
 // app.MapGroup("/api/account")

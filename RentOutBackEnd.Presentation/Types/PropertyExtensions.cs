@@ -15,4 +15,11 @@ public class PropertyExtensions
         // If no PropertyExtras are found, return null (or a new PropertyExtras object if you prefer)
         return propertyExtras ?? null;  // Change this to new PropertyExtras() if you need a default object
     }
+
+    public async Task<Address?> GetPropertyAddress([Parent] PropertyPost propertyPost, PropertyAddressDataloader loader)
+    {
+        var address = await loader.LoadAsync(propertyPost.Id);
+
+        return address ?? null;
+    }
 }

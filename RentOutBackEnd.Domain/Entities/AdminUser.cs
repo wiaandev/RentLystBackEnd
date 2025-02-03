@@ -4,6 +4,7 @@ namespace RentOutBackEnd.Domain.Entities;
 
 public class AdminUser
 {
+    [ID]
     public int Id { get; set; }
     
     public User User { get; set; }

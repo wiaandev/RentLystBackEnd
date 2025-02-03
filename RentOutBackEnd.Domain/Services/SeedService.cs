@@ -25,6 +25,7 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                 Email = "wiaan@stackworx.io",
                 FirstName = "Wiaan",
                 LastName = "Duvenhage",
+                IsRenter = true,
             },
             
             new()
@@ -33,6 +34,7 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                 Email = "charleneduvenhage@gmail.com",
                 FirstName = "Charlene",
                 LastName = "Duvenhage",
+                IsRenter = false,
             },
         };
         foreach (User user in users)

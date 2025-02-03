@@ -4,10 +4,10 @@ namespace RentOutBackEnd.Domain.Entities;
 
 public class Address: INode
 {
+
     [ID]
     public int Id { get; set; }
 
-    [ForeignKey(nameof(PropertyPost))] 
     public PropertyPost Property { get; set; } = null!;
     
     public int PropertyPostId { get; set; }

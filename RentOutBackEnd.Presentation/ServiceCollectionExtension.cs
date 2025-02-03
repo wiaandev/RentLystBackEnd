@@ -50,7 +50,7 @@ public static class ServiceCollectionExtensions
             //         });
             //     });
             // })
-            .AddType(new TimeSpanType(TimeSpanFormat.DotNet))
+            // .AddType(new TimeSpanType(TimeSpanFormat.DotNet))
             .AddType<OffsetDateTimeType>()
             .AddType<LocalDateType>()
             .AddType<LocalTimeType>()
