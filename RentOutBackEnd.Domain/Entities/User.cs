@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace RentOutBackEnd.Domain.Entities;
 
+[Node]
 public class User: IdentityUser<int>
 {
     public string FirstName { get; set; } = null!;
