@@ -1,8 +1,8 @@
 namespace RentOutBackEnd.Domain.Options;
 
-public class SeedOptions
+public class MigrateOptions
 {
-    public const string Key = "Seed";
+    public const string Key = "Migrate";
 
     public bool Enabled { get; set; }
 }

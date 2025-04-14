@@ -14,8 +14,14 @@ public static class IServiceCollectionExtensions
     
     public static IServiceCollection ConfigureOptions(this IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<DropOptions>(options =>
+            configuration.GetSection(DropOptions.Key).Bind(options));
+        services.Configure<MigrateOptions>(options =>
+            configuration.GetSection(MigrateOptions.Key).Bind(options));
         services.Configure<SeedOptions>(options =>
             configuration.GetSection(SeedOptions.Key).Bind(options));
+        services.Configure<CreateOptions>(options =>
+            configuration.GetSection(CreateOptions.Key).Bind(options));
         // services.AddHttpClient<GeocodingService>(client =>
         // {
         //     client.BaseAddress = new Uri("https://maps.googleapis.com/maps/api/");
@@ -48,6 +54,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>()!.HttpContext!.User);
         services.AddScoped<SeedService>();
+        services.AddScoped<UserService>();
 
         return services;
     }

@@ -2,12 +2,6 @@ using HotChocolate.Types.NodaTime;
 using HotChocolate.Types.Pagination;
 using RentOutBackEnd.Domain;
 
-// using HotChocolate.Types;
-// using HotChocolate.Types.NodaTime;
-// using HotChocolate.Types.Pagination;
-// using Microsoft.Extensions.DependencyInjection;
-// using HotChocolate.Execution.Configuration;
-
 namespace RentOutBackEnd.Presentation;
 
 public static class ServiceCollectionExtensions
@@ -55,6 +49,8 @@ public static class ServiceCollectionExtensions
             .AddType<LocalDateType>()
             .AddType<LocalTimeType>()
             .AddType<UploadType>();
+        
+      
 
         return services;
     }

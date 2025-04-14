@@ -16,42 +16,44 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
 
     public async Task SeedUsers()
     {
-        var users = new List<User>
+        var users = new List<(User user, string password)>
         {
-            new()
-            {
-                Id = 0,
-                UserName = "wiaan@stackworx.io",
-                Email = "wiaan@stackworx.io",
-                FirstName = "Wiaan",
-                LastName = "Duvenhage",
-                IsRenter = true,
-            },
-            
-            new()
-            {
-                UserName = "charleneduvenhage@gmail.com",
-                Email = "charleneduvenhage@gmail.com",
-                FirstName = "Charlene",
-                LastName = "Duvenhage",
-                IsRenter = false,
-            },
+            (
+                new User
+                {
+                    UserName = "wiaan@stackworx.io",
+                    Email = "wiaan@stackworx.io",
+                    FirstName = "Wiaan",
+                    LastName = "Duvenhage",
+                    IsRenter = true,
+                }, "SecurePassword123!"
+            ),
+            (
+                new User
+                {
+                    UserName = "charleneduvenhage@gmail.com",
+                    Email = "charleneduvenhage@gmail.com",
+                    FirstName = "Charlene",
+                    LastName = "Duvenhage",
+                    IsRenter = false,
+                }, "AnotherSecurePassword123!"
+            )
         };
-        foreach (User user in users)
+
+        foreach (var (user, password) in users)
         {
-            var createUser = await userManager.CreateAsync(user);
+            var createUser = await userManager.CreateAsync(user, password);
             if (!createUser.Succeeded)
             {
-                throw new Exception($"failed to create {createUser}");
+                var errors = string.Join("; ", createUser.Errors.Select(e => e.Description));
+                throw new Exception($"Failed to create user '{user.Email}': {errors}");
             }
 
-            if (user.Email != null)
+            var result = await userManager.AddClaimAsync(user, new Claim("All_Admin", "All"));
+            if (!result.Succeeded)
             {
-                var result = await userManager.AddClaimAsync(user, new Claim("All_Admin", "All"));
-                if (!result.Succeeded)  
-                {
-                    throw new Exception($"Failed to add claim to user: {createUser}");
-                }
+                var errors = string.Join("; ", result.Errors.Select(e => e.Description));
+                throw new Exception($"Failed to add claim to user '{user.Email}': {errors}");
             }
         }
     }

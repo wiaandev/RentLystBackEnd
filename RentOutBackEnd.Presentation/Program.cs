@@ -54,6 +54,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("AllowLocalhost");
+app.UseAuthentication();
 app.UseAuthorization();
 
 // app.MapGroup("/api/account")

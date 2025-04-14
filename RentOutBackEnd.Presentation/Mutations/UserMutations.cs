@@ -7,7 +7,7 @@ namespace RentOutBackEnd.Presentation.Mutations;
 [MutationType]
 public class UserMutations
 {
-    public async Task<User?> Login([Service] UserManager<User> userManager, [Service] SignInManager<User> sim, string email, string password)
+    public async Task<User?> Login([Service] UserManager<User> userManager, [Service] SignInManager<User> signInManager, string email, string password)
     {
         var user = await userManager.FindByEmailAsync(email);
 
@@ -16,9 +16,9 @@ public class UserMutations
             throw new Exception("Unauthorized");
         }
 
-        sim.AuthenticationScheme = IdentityConstants.ApplicationScheme;
+        signInManager.AuthenticationScheme = IdentityConstants.ApplicationScheme;
 
-        var result = await sim.PasswordSignInAsync(email, password, true, lockoutOnFailure: true);
+        var result = await signInManager.PasswordSignInAsync(email, password, true, lockoutOnFailure: true);
         
         Console.WriteLine(result);
 

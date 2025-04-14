@@ -1,8 +1,8 @@
 namespace RentOutBackEnd.Domain.Options;
 
-public class SeedOptions
+public class CreateOptions
 {
-    public const string Key = "Seed";
+    public const string Key = "Create";
 
     public bool Enabled { get; set; }
 }
