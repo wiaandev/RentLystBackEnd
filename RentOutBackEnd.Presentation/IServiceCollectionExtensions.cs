@@ -54,7 +54,6 @@ public static class IServiceCollectionExtensions
     {
         services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>()!.HttpContext!.User);
         services.AddScoped<SeedService>();
-        services.AddScoped<UserService>();
 
         return services;
     }

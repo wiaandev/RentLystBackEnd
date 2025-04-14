@@ -1,8 +1,10 @@
 using System.Security.Claims;
 using HotChocolate.Authorization;
+using Microsoft.EntityFrameworkCore;
 using RentOutBackEnd.Domain;
 using RentOutBackEnd.Domain.Entities;
 using RentOutBackEnd.Domain.Services;
+using RentOutBackEnd.Presentation.Types;
 
 namespace RentOutBackEnd.Presentation.Queries;
 
@@ -15,8 +17,17 @@ public class UserQueries
         return users;
     }
     
-    public Task<User> GetMe([Service] UserService userService, ClaimsPrincipal claimsPrincipal)
+    public async Task<User?> GetMe(AppDbContext appDbContext, ClaimsPrincipal claims)
     {
-        return userService.GetByClaimsPrincipalAsync(claimsPrincipal);
+        var partyClaim = claims.FindFirst((c) => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+        if (partyClaim is null)
+        {
+            return null;
+        }
+
+        var user = await appDbContext.Users.FirstAsync(user => user.Id == int.Parse(partyClaim.Value));
+
+        return user;
     }
 }
