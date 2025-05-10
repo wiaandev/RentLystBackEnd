@@ -21,6 +21,8 @@ namespace RentOutBackEnd.Domain.Entities
         
         public DateTime CreatedAt { get; set; }
         
+        public Address Address { get; set; } = null!;
+        
         // Enum types within the class
         public enum RentType
         {
