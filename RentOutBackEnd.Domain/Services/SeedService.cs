@@ -11,6 +11,7 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
     {
         await this.SeedUsers();
         await this.SeedPropertyPosts();
+        await this.SeedPropertyAddresses();
         await this.SeedPropertyExtras();
     }
 
@@ -80,6 +81,25 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
         };
 
         appDbContext.PropertyPosts.AddRange(properties);
+        await appDbContext.SaveChangesAsync(); // Save to persist the data and generate IDs
+    }
+    
+    public async Task SeedPropertyAddresses()
+    {
+        var addresses = new List<Address>
+        {
+            new()
+            {
+                PropertyPostId = 1,
+                StreetName = "Main Street",
+                StreetNumber = "23",
+                Suburb = "Lakeview",
+                City = "Welkom",
+                Province = "Free State"
+            }
+        };
+
+        appDbContext.AddRange(addresses);
         await appDbContext.SaveChangesAsync(); // Save to persist the data and generate IDs
     }
 

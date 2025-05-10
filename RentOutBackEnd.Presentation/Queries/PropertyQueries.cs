@@ -7,6 +7,7 @@ namespace RentOutBackEnd.Presentation.Queries;
 [QueryType]
 public class PropertyQueries
 {
+    [UsePaging]
     public IQueryable<PropertyPost> GetProperties(AppDbContext appDbContext)
     {
         var properties = appDbContext.PropertyPosts;

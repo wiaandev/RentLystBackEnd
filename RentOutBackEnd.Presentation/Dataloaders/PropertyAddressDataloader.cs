@@ -15,6 +15,7 @@ public class PropertyAddressDataloader: BatchDataLoader<int, Address>
         this._dbContextFactory = dbContextFactory;
     }
     
+    [DataLoader]
     protected override async Task<IReadOnlyDictionary<int, Address>> LoadBatchAsync(IReadOnlyList<int> keys,
         CancellationToken ct)
     {
