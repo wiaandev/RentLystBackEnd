@@ -17,7 +17,7 @@ public class PropertyPostDataloader: BatchDataLoader<int, PropertyPost>
     protected override async Task<IReadOnlyDictionary<int, PropertyPost>> LoadBatchAsync(IReadOnlyList<int> keys,
         CancellationToken ct)
     {
-        await using var dbContext = this.dbContextFactory.CreateDbContext();
+        await using var dbContext = await this.dbContextFactory.CreateDbContextAsync(ct);
 
         var propertyPosts = await dbContext.PropertyPosts.Where(pp => keys.Contains(pp.Id)).ToListAsync(ct);
 

@@ -8,10 +8,9 @@ namespace RentOutBackEnd.Presentation.Queries;
 public class PropertyQueries
 {
     [UsePaging]
-    public IQueryable<PropertyPost> GetProperties(AppDbContext appDbContext)
+    public async Task<IList<PropertyPost>> GetProperties(AppDbContext appDbContext, CancellationToken ct)
     {
-        var properties = appDbContext.PropertyPosts;
-        return properties;
+        return await appDbContext.PropertyPosts.ToListAsync(ct);
     }
 
     public async Task<PropertyPost> GetPropertyAsync(AppDbContext appDbContext, [ID] int propertyId)

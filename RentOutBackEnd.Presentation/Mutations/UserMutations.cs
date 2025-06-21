@@ -30,6 +30,13 @@ public class UserMutations
         return user;
     }
     
+    public async Task<bool> Logout([Service] UserManager<User> userManager, [Service] SignInManager<User> signInManager, string email, string password)
+    {
+        await signInManager.SignOutAsync();
+
+        return true;
+    }
+    
     public async Task<User> UserRegistration(AppDbContext dbContext, [Service] UserManager<User> userManager, UserRegistrationRequest input,
         [Service] IServiceProvider serviceProvider)
     {

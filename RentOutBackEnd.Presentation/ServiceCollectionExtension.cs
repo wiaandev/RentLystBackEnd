@@ -14,8 +14,8 @@ public static class ServiceCollectionExtensions
             {
                 InferConnectionNameFromField = false,
                 IncludeTotalCount = true,
-                DefaultPageSize = 10,
-                MaxPageSize = 10,
+                DefaultPageSize = 20,
+                MaxPageSize = 20,
                 RequirePagingBoundaries = true,
             })
             .AddTypes()
