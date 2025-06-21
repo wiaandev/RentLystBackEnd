@@ -16,8 +16,5 @@ public class User: IdentityUser<int>
     
     public bool IsRenter { get; set; }
 
-    [ForeignKey(nameof(PropertyPost))] 
-    public PropertyPost Property { get; set; } = null!;
-    
-    public int PropertyPostId { get; set; }
+    public IList<PropertyPost> Properties { get; set; } = null!;
 }

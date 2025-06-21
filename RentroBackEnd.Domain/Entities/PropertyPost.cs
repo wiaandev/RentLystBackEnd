@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace RentroBackEnd.Domain.Entities
 {
     public class PropertyPost
@@ -6,6 +8,11 @@ namespace RentroBackEnd.Domain.Entities
         public int Id { get; set; }
 
         public RentType PropertyType { get; set; }
+        
+        public int SellerId { get; set; }
+        
+        [ForeignKey(nameof(SellerId))]
+        public User Seller { get; set; } = null!;
         
         public int WeeklyAmount { get; set; }
         
@@ -34,13 +41,12 @@ namespace RentroBackEnd.Domain.Entities
             Townhouse,
         }
         
+        [Flags]
         public enum AllowedPetType
         {
-            Dog,
-            Cat,
-            Hamster,
-            Bird,
-            Fish,
+            Dog = 0,
+            Cat = 1,
+            Bird = 2
         }
     }
 }

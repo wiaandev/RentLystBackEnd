@@ -279,10 +279,15 @@ namespace RentOutBackEnd.Presentation.Migrations
                     b.Property<int>("PropertyType")
                         .HasColumnType("integer");
 
+                    b.Property<int>("SellerId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("WeeklyAmount")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SellerId");
 
                     b.ToTable("PropertyPosts");
                 });
@@ -402,12 +407,6 @@ namespace RentOutBackEnd.Presentation.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("PropertyPost")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PropertyPostId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -426,8 +425,6 @@ namespace RentOutBackEnd.Presentation.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("PropertyPost");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -527,16 +524,18 @@ namespace RentOutBackEnd.Presentation.Migrations
                     b.Navigation("Property");
                 });
 
-            modelBuilder.Entity("RentroBackEnd.Domain.Entities.RentDuration", b =>
+            modelBuilder.Entity("RentroBackEnd.Domain.Entities.PropertyPost", b =>
                 {
-                    b.HasOne("RentroBackEnd.Domain.Entities.PropertyPost", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyPost");
+                    b.HasOne("RentroBackEnd.Domain.Entities.User", "Seller")
+                        .WithMany("Properties")
+                        .HasForeignKey("SellerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Property");
+                    b.Navigation("Seller");
                 });
 
-            modelBuilder.Entity("RentroBackEnd.Domain.Entities.User", b =>
+            modelBuilder.Entity("RentroBackEnd.Domain.Entities.RentDuration", b =>
                 {
                     b.HasOne("RentroBackEnd.Domain.Entities.PropertyPost", "Property")
                         .WithMany()
@@ -554,6 +553,8 @@ namespace RentOutBackEnd.Presentation.Migrations
             modelBuilder.Entity("RentroBackEnd.Domain.Entities.User", b =>
                 {
                     b.Navigation("AdminUser");
+
+                    b.Navigation("Properties");
                 });
 #pragma warning restore 612, 618
         }

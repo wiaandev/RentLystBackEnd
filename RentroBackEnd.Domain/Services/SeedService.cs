@@ -18,7 +18,7 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
 
     public async Task SeedRolesAsync()
     {
-        var roles = new[] { "Admin", "User" };
+        var roles = new[] { "Admin", "Renter", "Seller" };
 
         foreach (var roleName in roles)
         {
@@ -73,12 +73,13 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
             }
         }
         
-        await userManager.AddToRoleAsync(users[0].user, "User");
+        await userManager.AddToRoleAsync(users[0].user, "Renter");
         await userManager.AddToRoleAsync(users[1].user, "Admin");
     }
 
     public async Task SeedPropertyPosts()
     {
+        var users = await appDbContext.Users.ToListAsync();
         var properties = new List<PropertyPost>
         {
             new()
@@ -95,6 +96,8 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                     PropertyPost.AllowedPetType.Dog
                 },
                 CreatedAt = DateTime.UtcNow.AddHours(2),
+                SellerId = 2,
+                Seller = users.First(),
             }
         };
 
@@ -108,12 +111,12 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
         {
             new()
             {
-                PropertyPostId = 1,
                 StreetName = "Main Street",
                 StreetNumber = "23",
                 Suburb = "Lakeview",
                 City = "Welkom",
-                Province = "Free State"
+                Province = "Free State",
+                PropertyPostId = 1,
             }
         };
 
