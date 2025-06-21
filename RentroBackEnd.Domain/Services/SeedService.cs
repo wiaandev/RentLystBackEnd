@@ -50,13 +50,16 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                 throw new Exception($"Failed to create user '{user.Email}': {errors}");
             }
 
-            var result = await userManager.AddClaimAsync(user, new Claim("All_Admin", "All"));
+            var result = await userManager.RemoveClaimAsync(user, new Claim("All_Admin", "All"));
             if (!result.Succeeded)
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
                 throw new Exception($"Failed to add claim to user '{user.Email}': {errors}");
             }
         }
+        
+        await userManager.AddToRoleAsync(users[0].user, "User");
+        await userManager.AddToRoleAsync(users[1].user, "Admin");
     }
 
     public async Task SeedPropertyPosts()

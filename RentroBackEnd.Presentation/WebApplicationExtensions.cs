@@ -16,15 +16,7 @@ public static class WebApplicationExtensions
         var migrateOptions = scope.ServiceProvider.GetRequiredService<IOptions<MigrateOptions>>().Value;
         var seedOptions = scope.ServiceProvider.GetRequiredService<IOptions<SeedOptions>>().Value;
         var createOptions = scope.ServiceProvider.GetRequiredService<IOptions<CreateOptions>>().Value;
-
-
-        if (dropOptions.Enabled)
-        {
-            Console.WriteLine("Dropping database");
-            await using var dbContext = await factory.CreateDbContextAsync();
-            await dbContext.Database.EnsureDeletedAsync();
-        }
-
+        
         // if (createOptions.Enabled)
         // {
         //
@@ -46,6 +38,16 @@ public static class WebApplicationExtensions
         //     await dbContext.Database.ExecuteSqlRawAsync(createDbSql);
         // }
 
+
+
+        if (dropOptions.Enabled)
+        {
+            Console.WriteLine("Dropping database");
+            await using var dbContext = await factory.CreateDbContextAsync();
+            await dbContext.Database.EnsureDeletedAsync();
+        }
+
+        
         if (migrateOptions.Enabled)
         {
             Console.WriteLine("Migrating database");
