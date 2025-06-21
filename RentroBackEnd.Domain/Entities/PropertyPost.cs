@@ -9,9 +9,9 @@ namespace RentroBackEnd.Domain.Entities
 
         public RentType PropertyType { get; set; }
         
+        [ForeignKey(nameof(Seller))]
         public int SellerId { get; set; }
-        
-        [ForeignKey(nameof(SellerId))]
+
         public User Seller { get; set; } = null!;
         
         public int WeeklyAmount { get; set; }

@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace RentOutBackEnd.Presentation.Migrations
+namespace RentroBackEnd.Presentation.Migrations
 {
     /// <inheritdoc />
-    public partial class initialcreate2 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,23 +28,33 @@ namespace RentOutBackEnd.Presentation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PropertyPosts",
+                name: "AspNetUsers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyType = table.Column<int>(type: "integer", nullable: false),
-                    WeeklyAmount = table.Column<int>(type: "integer", nullable: false),
-                    BedroomAmount = table.Column<int>(type: "integer", nullable: false),
-                    BathroomAmount = table.Column<int>(type: "integer", nullable: false),
-                    ParkingAmount = table.Column<int>(type: "integer", nullable: false),
-                    PetAmount = table.Column<int>(type: "integer", nullable: true),
-                    PetType = table.Column<int[]>(type: "integer[]", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    IsRenter = table.Column<bool>(type: "boolean", nullable: false),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyPosts", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,130 +79,22 @@ namespace RentOutBackEnd.Presentation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Addresses",
+                name: "AdminUser",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyPost = table.Column<int>(type: "integer", nullable: false),
-                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
-                    StreetName = table.Column<string>(type: "text", nullable: false),
-                    StreetNumber = table.Column<string>(type: "text", nullable: false),
-                    Suburb = table.Column<string>(type: "text", nullable: false),
-                    City = table.Column<string>(type: "text", nullable: false),
-                    Province = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.PrimaryKey("PK_AdminUser", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_PropertyPosts_PropertyPost",
-                        column: x => x.PropertyPost,
-                        principalTable: "PropertyPosts",
+                        name: "FK_AdminUser_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyPost = table.Column<int>(type: "integer", nullable: true),
-                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_PropertyPosts_PropertyPost",
-                        column: x => x.PropertyPost,
-                        principalTable: "PropertyPosts",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PropertyExtrasEnumerable",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
-                    HasFiber = table.Column<bool>(type: "boolean", nullable: false),
-                    PetsAllowed = table.Column<bool>(type: "boolean", nullable: false),
-                    HasPool = table.Column<bool>(type: "boolean", nullable: false),
-                    HasGarden = table.Column<bool>(type: "boolean", nullable: false),
-                    HasPatio = table.Column<bool>(type: "boolean", nullable: false),
-                    HasFlatlet = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PropertyExtrasEnumerable", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PropertyExtrasEnumerable_PropertyPosts_PropertyPostId",
-                        column: x => x.PropertyPostId,
-                        principalTable: "PropertyPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PropertyImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyPost = table.Column<int>(type: "integer", nullable: false),
-                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
-                    Uri = table.Column<string>(type: "text", nullable: false),
-                    IsPrimary = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PropertyImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PropertyImages_PropertyPosts_PropertyPost",
-                        column: x => x.PropertyPost,
-                        principalTable: "PropertyPosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RentDurations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PropertyPost = table.Column<int>(type: "integer", nullable: true),
-                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
-                    From = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    To = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RentDurations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RentDurations_PropertyPosts_PropertyPost",
-                        column: x => x.PropertyPost,
-                        principalTable: "PropertyPosts",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -280,10 +182,137 @@ namespace RentOutBackEnd.Presentation.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PropertyPosts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PropertyType = table.Column<int>(type: "integer", nullable: false),
+                    SellerId = table.Column<int>(type: "integer", nullable: false),
+                    WeeklyAmount = table.Column<int>(type: "integer", nullable: false),
+                    BedroomAmount = table.Column<int>(type: "integer", nullable: false),
+                    BathroomAmount = table.Column<int>(type: "integer", nullable: false),
+                    ParkingAmount = table.Column<int>(type: "integer", nullable: false),
+                    PetAmount = table.Column<int>(type: "integer", nullable: true),
+                    PetType = table.Column<int[]>(type: "integer[]", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyPosts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PropertyPosts_AspNetUsers_SellerId",
+                        column: x => x.SellerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
+                    StreetName = table.Column<string>(type: "text", nullable: false),
+                    StreetNumber = table.Column<string>(type: "text", nullable: false),
+                    Suburb = table.Column<string>(type: "text", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: false),
+                    Province = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_PropertyPosts_PropertyPostId",
+                        column: x => x.PropertyPostId,
+                        principalTable: "PropertyPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PropertyExtrasEnumerable",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
+                    HasFiber = table.Column<bool>(type: "boolean", nullable: false),
+                    PetsAllowed = table.Column<bool>(type: "boolean", nullable: false),
+                    HasPool = table.Column<bool>(type: "boolean", nullable: false),
+                    HasGarden = table.Column<bool>(type: "boolean", nullable: false),
+                    HasPatio = table.Column<bool>(type: "boolean", nullable: false),
+                    HasFlatlet = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyExtrasEnumerable", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PropertyExtrasEnumerable_PropertyPosts_PropertyPostId",
+                        column: x => x.PropertyPostId,
+                        principalTable: "PropertyPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PropertyImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PropertyPost = table.Column<int>(type: "integer", nullable: false),
+                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
+                    Uri = table.Column<string>(type: "text", nullable: false),
+                    IsPrimary = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PropertyImages_PropertyPosts_PropertyPost",
+                        column: x => x.PropertyPost,
+                        principalTable: "PropertyPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RentDurations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PropertyPost = table.Column<int>(type: "integer", nullable: true),
+                    PropertyPostId = table.Column<int>(type: "integer", nullable: false),
+                    From = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    To = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RentDurations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RentDurations_PropertyPosts_PropertyPost",
+                        column: x => x.PropertyPost,
+                        principalTable: "PropertyPosts",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_PropertyPost",
+                name: "IX_Addresses_PropertyPostId",
                 table: "Addresses",
-                column: "PropertyPost");
+                column: "PropertyPostId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AdminUser_UserId",
+                table: "AdminUser",
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -317,11 +346,6 @@ namespace RentOutBackEnd.Presentation.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_PropertyPost",
-                table: "AspNetUsers",
-                column: "PropertyPost");
-
-            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -338,6 +362,11 @@ namespace RentOutBackEnd.Presentation.Migrations
                 column: "PropertyPost");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PropertyPosts_SellerId",
+                table: "PropertyPosts",
+                column: "SellerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RentDurations_PropertyPost",
                 table: "RentDurations",
                 column: "PropertyPost");
@@ -348,6 +377,9 @@ namespace RentOutBackEnd.Presentation.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "AdminUser");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -377,10 +409,10 @@ namespace RentOutBackEnd.Presentation.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "PropertyPosts");
 
             migrationBuilder.DropTable(
-                name: "PropertyPosts");
+                name: "AspNetUsers");
         }
     }
 }
