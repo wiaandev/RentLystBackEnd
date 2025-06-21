@@ -5,14 +5,29 @@ using RentroBackEnd.Domain.Entities;
 
 namespace RentroBackEnd.Domain.Services;
 
-public class SeedService(AppDbContext appDbContext, UserManager<User> userManager)
+public class SeedService(AppDbContext appDbContext, UserManager<User> userManager, RoleManager<Role> roleManager)
 {
     public async Task Seed()
     {
+        await this.SeedRolesAsync();
         await this.SeedUsers();
         await this.SeedPropertyPosts();
         await this.SeedPropertyAddresses();
         await this.SeedPropertyExtras();
+    }
+
+    public async Task SeedRolesAsync()
+    {
+        var roles = new[] { "Admin", "User" };
+
+        foreach (var roleName in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(roleName))
+            {
+                var role = new Role { Name = roleName, NormalizedName = roleName.ToUpper() };
+                await roleManager.CreateAsync(role);
+            }
+        }
     }
 
     public async Task SeedUsers()
