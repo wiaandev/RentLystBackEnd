@@ -57,6 +57,7 @@ public class UserMutations
         {
             FirstName = input.FirstName,
             LastName = input.LastName,
+            IsRenter = input.IsRenter,
             Email = input.Email
         };
         await userStore.SetUserNameAsync(user, email, CancellationToken.None);
@@ -83,6 +84,15 @@ public class UserMutations
 
             await userManager.AddPasswordAsync(user, input.Password);
             await userManager.SetPhoneNumberAsync(user, input.PhoneNumber);
+            if (user.IsRenter)
+            {
+                await userManager.AddToRoleAsync(user, "Renter");
+            }
+            else
+            { 
+                await userManager.AddToRoleAsync(user, "Seller");
+            }
+            
 
             var newResult = await userManager.UpdateAsync(user);
 
@@ -103,6 +113,8 @@ public class UserMutations
         public string FirstName { get; init; }
         public string LastName { get; init; }
         public string Email { get; init; }
+        
+        public bool IsRenter { get; init; }
 
         public string Password { get; init; }
 
