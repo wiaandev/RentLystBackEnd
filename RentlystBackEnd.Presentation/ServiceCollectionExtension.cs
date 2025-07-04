@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
                 MaxPageSize = 20,
                 RequirePagingBoundaries = true,
             })
-            // .AddTypes
+            .AddTypes()
             .AddFiltering()
             .AddProjections()
             // .AddSpatialFiltering()
