@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: E!1vmpd
-      POSTGRES_DB: rentro-database
+      POSTGRES_DB: rentlyst-database
     ports:
       - "5433:5432"  # Adjusted to avoid port conflict
     volumes:
