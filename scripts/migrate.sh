@@ -7,6 +7,6 @@ set -e
 set -x
 
 EF_DB_MIGRATION_NAME=${1:?"Missing argument EF_DB_MIGRATION_NAME"}
-EF_COMMAND_ARGS="--context AppDbContext --startup-project=RentroBackEnd.Presentation/RentroBackEnd.Presentation.csproj --project=RentroBackEnd.Presentation/RentroBackEnd.Presentation.csproj"
+EF_COMMAND_ARGS="--context AppDbContext --startup-project=RentlystBackEnd.Presentation/RentlystBackEnd.Presentation.csproj --project=RentlystBackEnd.Presentation/RentlystBackEnd.Presentation.csproj"
 dotnet ef migrations add $EF_COMMAND_ARGS $EF_DB_MIGRATION_NAME
 dotnet ef database update $EF_COMMAND_ARGS
