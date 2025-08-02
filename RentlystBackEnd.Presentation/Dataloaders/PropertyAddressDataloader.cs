@@ -2,27 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using RentlystBackEnd.Domain;
 using RentlystBackEnd.Domain.Entities;
 
-namespace RentOutBackEnd.Presentation.Dataloaders;
+namespace RentlystBackEnd.Presentation.Dataloaders;
 
-public class PropertyAddressDataloader : BatchDataLoader<int, Address>
+public static class PropertyAddressDataloader
 {
-    // TODO: Review data loader
-    private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
-
-    public PropertyAddressDataloader(IDbContextFactory<AppDbContext> dbContextFactory, IBatchScheduler _batchScheduler,
-        DataLoaderOptions? options = null) : base(_batchScheduler, options)
-    {
-        this._dbContextFactory = dbContextFactory;
-    }
-
     [DataLoader]
-    protected override async Task<IReadOnlyDictionary<int, Address>> LoadBatchAsync(IReadOnlyList<int> keys,
-        CancellationToken ct)
-    {
-        await using var dbContext = this._dbContextFactory.CreateDbContext();
-
-        var propertyPosts = await dbContext.Addresses.Where(pp => keys.Contains(pp.Id)).ToListAsync(ct);
-
-        return propertyPosts.ToDictionary(pa => pa.Id);
-    }
+    public static async Task<Dictionary<int, Address>> GetAddressByPropertyId(
+        IReadOnlyList<int> propertyIds,
+        AppDbContext context,
+        CancellationToken cancellationToken)
+        => await context.Addresses
+            .Where(a => propertyIds.Contains(a.PropertyPostId))
+            .ToDictionaryAsync(a => a.PropertyPostId, cancellationToken);
 }

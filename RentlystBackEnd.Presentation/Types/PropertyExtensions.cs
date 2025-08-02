@@ -1,5 +1,6 @@
 using RentOutBackEnd.Presentation.Dataloaders;
 using RentlystBackEnd.Domain.Entities;
+using RentlystBackEnd.Presentation.Dataloaders;
 
 namespace RentlystBackEnd.Presentation.Types;
 
@@ -17,10 +18,17 @@ public class PropertyExtensions
         return propertyExtras ?? null; // Change this to new PropertyExtras() if you need a default object
     }
 
-    public async Task<Address?> GetPropertyAddress([Parent] PropertyPost propertyPost, PropertyAddressDataloader loader)
+    public async Task<Address?> GetPropertyAddress(
+        [Parent] PropertyPost propertyPost,
+        IAddressByPropertyIdDataLoader loader)
     {
         var address = await loader.LoadAsync(propertyPost.Id);
 
-        return address ?? null;
+        if (address is null)
+        {
+            // Log or handle missing address if needed
+        }
+
+        return address;
     }
 }

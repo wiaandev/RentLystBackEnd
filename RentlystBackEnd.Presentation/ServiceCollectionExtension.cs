@@ -10,13 +10,14 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddGraphQLServer()
-            .SetPagingOptions(new PagingOptions
+            .RegisterDbContextFactory<AppDbContext>()
+            .ModifyPagingOptions(opts =>
             {
-                InferConnectionNameFromField = false,
-                IncludeTotalCount = true,
-                DefaultPageSize = 20,
-                MaxPageSize = 20,
-                RequirePagingBoundaries = true,
+                opts.InferConnectionNameFromField = false;
+                opts.IncludeTotalCount = true;
+                opts.DefaultPageSize = 20;
+                opts.MaxPageSize = 20;
+                opts.RequirePagingBoundaries = true;
             })
             .AddTypes()
             .AddFiltering()
@@ -24,18 +25,13 @@ public static class ServiceCollectionExtensions
             // .AddSpatialFiltering()
             // .AddSpatialProjections()
             .AddMutationConventions()
-            .RegisterDbContext<AppDbContext>(DbContextKind.Pooled)
             // .AddErrorFilter<ErrorFilter>()
             // .AddDiagnosticEventListener<MyExecutionDiagnosticEventListener>()
             // .AddDiagnosticEventListener<MyDataLoaderEventListener>()
             .AddGlobalObjectIdentification()
             .AddAuthorization()
-            // .AddType(new TimeSpanType(TimeSpanFormat.DotNet))
-            .AddType<OffsetDateTimeType>()
-            .AddType<LocalDateType>()
-            .AddType<LocalTimeType>()
+            .AddType(new TimeSpanType(TimeSpanFormat.DotNet))
             .AddType<UploadType>();
-
 
 
         return services;
