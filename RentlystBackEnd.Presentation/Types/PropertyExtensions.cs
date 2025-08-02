@@ -1,4 +1,3 @@
-using RentOutBackEnd.Presentation.Dataloaders;
 using RentlystBackEnd.Domain.Entities;
 using RentlystBackEnd.Presentation.Dataloaders;
 
@@ -9,7 +8,7 @@ namespace RentlystBackEnd.Presentation.Types;
 public class PropertyExtensions
 {
     public async Task<PropertyExtras?> GetPropertyExtras([Parent] PropertyPost propertyPost,
-        PropertyExtrasDataloader loader)
+        IExtrasByPropertyIdDataLoader loader)
     {
         // Fetch PropertyExtras using the DataLoader
         var propertyExtras = await loader.LoadAsync(propertyPost.Id);

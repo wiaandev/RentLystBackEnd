@@ -28,5 +28,14 @@ public class UserQueries
 
         return user;
     }
+    
+    public async Task<User?> GetUserById(
+        AppDbContext appDbContext,
+        [ID] int userId,
+        CancellationToken ct)
+    {
+        var user = await appDbContext.Users.FirstAsync(user => user.Id == userId, ct);
+        return user;
+    }
 }
     
