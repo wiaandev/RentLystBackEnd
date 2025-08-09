@@ -9,6 +9,7 @@ namespace RentlystBackEnd.Domain.Entities
 
         public RentType PropertyType { get; set; }
         
+        [ID]
         [ForeignKey(nameof(Seller))]
         public int SellerId { get; set; }
 

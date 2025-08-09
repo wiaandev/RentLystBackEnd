@@ -12,8 +12,8 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
         await this.SeedRolesAsync();
         await this.SeedUsers();
         await this.SeedPropertyPosts();
-        await this.SeedPropertyAddresses();
         await this.SeedPropertyExtras();
+        await this.SeedPropertyAddresses();
     }
 
     public async Task SeedRolesAsync()
@@ -42,7 +42,7 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                     FirstName = "Wiaan",
                     LastName = "Duvenhage",
                     IsRenter = true,
-                }, "SecurePassword123!"
+                }, "E!1vmpwd"
             ),
             (
                 new User
@@ -52,8 +52,18 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                     FirstName = "Charlene",
                     LastName = "Duvenhage",
                     IsRenter = false,
-                }, "AnotherSecurePassword123!"
-            )
+                }, "E!1vmpwd"
+            ),
+            (
+                new User
+                {
+                    UserName = "seller@mail.com",
+                    Email = "seller@mail.com",
+                    FirstName = "Tom",
+                    LastName = "Bradley",
+                    IsRenter = false,
+                }, "E!1vmpwd"
+            ),
         };
 
         foreach (var (user, password) in users)
@@ -75,10 +85,14 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
         
         await userManager.AddToRoleAsync(users[0].user, "Renter");
         await userManager.AddToRoleAsync(users[1].user, "Admin");
+        await userManager.AddToRoleAsync(users[2].user, "Seller");
     }
     public async Task SeedPropertyPosts()
     {
-        var users = await appDbContext.Users.ToListAsync();
+        var sellerUsers = await appDbContext.Users
+            .Where(u => u.UserName == "charleneduvenhage@gmail.com" || u.UserName == "seller@mail.com")
+            .ToDictionaryAsync(u => u.UserName, u => u.Id);
+
         var properties = new List<PropertyPost>
         {
             new()
@@ -95,13 +109,22 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                     PropertyPost.AllowedPetType.Dog
                 },
                 CreatedAt = DateTime.UtcNow.AddHours(2),
-                SellerId = 2,
-                Seller = users.First(),
+                SellerId = sellerUsers["seller@mail.com"], // resolved FK
+            },
+            new()
+            {
+                PropertyType = PropertyPost.RentType.House,
+                WeeklyAmount = 2000,
+                BedroomAmount = 3,
+                BathroomAmount = 2,
+                ParkingAmount = 4,
+                CreatedAt = DateTime.UtcNow,
+                SellerId = sellerUsers["charleneduvenhage@gmail.com"],
             }
         };
 
         appDbContext.PropertyPosts.AddRange(properties);
-        await appDbContext.SaveChangesAsync(); // Save to persist the data and generate IDs
+        await appDbContext.SaveChangesAsync();
     }
     
     public async Task SeedPropertyAddresses()
@@ -116,6 +139,15 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                 City = "Welkom",
                 Province = "Free State",
                 PropertyPostId = 1,
+            },
+            new()
+            {
+                StreetName = "Oak Avenue",
+                StreetNumber = "12B",
+                Suburb = "Riverside",
+                City = "Bloemfontein",
+                Province = "Free State",
+                PropertyPostId = 2,
             }
         };
 
@@ -137,21 +169,6 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
         {
             new()
             {
-                Property = new PropertyPost
-                {
-                    PropertyType = PropertyPost.RentType.Apartment,
-                    WeeklyAmount = 600,
-                    BedroomAmount = 2,
-                    BathroomAmount = 1,
-                    ParkingAmount = 2,
-                    PetAmount = 2,
-                    PetType = new List<PropertyPost.AllowedPetType>
-                    {
-                        PropertyPost.AllowedPetType.Bird,
-                        PropertyPost.AllowedPetType.Dog
-                    },
-                    CreatedAt = DateTime.UtcNow.AddHours(2)
-                },
                 PropertyPostId = 1, // Use the actual ID of the saved PropertyPost
                 HasFiber = true,
                 PetsAllowed = true,

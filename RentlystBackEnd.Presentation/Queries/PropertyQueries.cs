@@ -18,6 +18,7 @@ public class PropertyQueries
     public async Task<PropertyPost> GetPropertyByIdAsync(AppDbContext appDbContext, [ID] int propertyId)
     {
         var property = await appDbContext.PropertyPosts
+            .Include(u => u.Address)
             .Where(p => p.Id == propertyId)
             .FirstOrDefaultAsync() ?? throw new Exception("Property does not exist");
 

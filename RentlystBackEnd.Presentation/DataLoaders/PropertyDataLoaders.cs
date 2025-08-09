@@ -14,6 +14,7 @@ public static class PropertyDataLoaders
         CancellationToken cancellationToken)
     {
         var posts = await appDbContext.PropertyPosts
+            .Include(u => u.Address)
             .Where(pp => userIds.Contains(pp.SellerId))
             .ToListAsync(cancellationToken);
 

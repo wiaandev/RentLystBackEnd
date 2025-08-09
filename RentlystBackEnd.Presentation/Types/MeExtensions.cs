@@ -1,12 +1,17 @@
 using System.Security.Claims;
-using Microsoft.VisualBasic;
-using RentlystBackEnd.Presentation.Types;
+using HotChocolate.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using RentlystBackEnd.Domain;
+using RentlystBackEnd.Domain.Entities;
+using RentlystBackEnd.Presentation.Dataloaders;
 
-namespace RentOutBackEnd.Presentation.Types;
+namespace RentlystBackEnd.Presentation.Types;
 
 [ExtendObjectType<Me>]
 public class MeExtensions
 {
+
     public static bool IsSuperAdmin(
         ClaimsPrincipal claims)
     {

@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using RentlystBackEnd.Domain;
 using RentlystBackEnd.Domain.Entities;
+using RentlystBackEnd.Presentation.Types;
 
 namespace RentlystBackEnd.Presentation.Queries;
 
@@ -14,7 +15,7 @@ public class UserQueries
         return users;
     }
 
-    public async Task<User?> GetMe(AppDbContext appDbContext, ClaimsPrincipal claims)
+    public async Task<Me?> GetMe(AppDbContext appDbContext, ClaimsPrincipal claims)
     {
         var partyClaim = claims.FindFirst((c) =>
             c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
@@ -26,7 +27,7 @@ public class UserQueries
 
         var user = await appDbContext.Users.FirstAsync(user => user.Id == int.Parse(partyClaim.Value));
 
-        return user;
+        return new Me(user);
     }
     
     public async Task<User?> GetUserById(
