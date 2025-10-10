@@ -26,6 +26,11 @@ public class PropertyExtensions
         return propertyExtras ?? null; // Change this to new PropertyExtras() if you need a default object
     }
 
+    public async Task<User?> GetPropertySeller([Parent] PropertyPost propertyPost, ISellersByPropertyIdDataLoader loader)
+    {
+        return await loader.LoadAsync(propertyPost.Id);
+    }
+
     public async Task<Address?> GetPropertyAddress(
         [Parent] PropertyPost propertyPost,
         IAddressByPropertyIdDataLoader loader)

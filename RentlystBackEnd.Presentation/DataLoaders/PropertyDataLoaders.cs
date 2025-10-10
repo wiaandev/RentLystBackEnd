@@ -38,4 +38,16 @@ public static class PropertyDataLoaders
         => await appDbContext.PropertyExtrasEnumerable
             .Where(pp => propertyIds.Contains(pp.PropertyPostId))
             .ToDictionaryAsync(a => a.PropertyPostId, ct);
+    
+    [DataLoader]
+    public static async Task<Dictionary<int, User>> GetSellersByPropertyIdAsync(
+        IReadOnlyList<int> propertyIds,
+        AppDbContext db,
+        CancellationToken ct)
+    {
+        return await db.PropertyPosts
+            .Where(pp => propertyIds.Contains(pp.Id))
+            .Select(pp => new { pp.Id, pp.Seller })
+            .ToDictionaryAsync(x => x.Id, x => x.Seller, ct);
+    }
 }
