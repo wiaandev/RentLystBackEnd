@@ -89,10 +89,6 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
     }
     public async Task SeedPropertyPosts()
     {
-        var sellerUsers = await appDbContext.Users
-            .Where(u => u.UserName == "charleneduvenhage@gmail.com" || u.UserName == "seller@mail.com")
-            .ToDictionaryAsync(u => u.UserName, u => u.Id);
-
         var properties = new List<PropertyPost>
         {
             new()
@@ -109,7 +105,7 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                     PropertyPost.AllowedPetType.Dog
                 },
                 CreatedAt = DateTime.UtcNow.AddHours(2),
-                SellerId = sellerUsers["seller@mail.com"], // resolved FK
+                SellerId = 1, // resolved FK
             },
             new()
             {
@@ -119,7 +115,7 @@ public class SeedService(AppDbContext appDbContext, UserManager<User> userManage
                 BathroomAmount = 2,
                 ParkingAmount = 4,
                 CreatedAt = DateTime.UtcNow,
-                SellerId = sellerUsers["charleneduvenhage@gmail.com"],
+                SellerId = 2,
             }
         };
 

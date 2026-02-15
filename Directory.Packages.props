@@ -5,49 +5,46 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- HotChocolate packages -->
-    <PackageVersion Include="HotChocolate" Version="15.1.8" />
+    <PackageVersion Include="HotChocolate" Version="15.1.12" />
     <PackageVersion Include="HotChocolate.AspNetCore.Abstractions" Version="10.5.5" />
-    <PackageVersion Include="HotChocolate.AspNetCore" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Abstractions" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.AspNetCore.Authorization" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Authorization" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Data" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Diagnostics" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Execution" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Execution.Abstractions" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Language" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Language.Utf8" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Language.Web" Version="15.1.8" />
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Abstractions" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.AspNetCore.Authorization" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Authorization" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Data" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Diagnostics" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Execution" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Execution.Abstractions" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Language" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Language.Utf8" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Language.Web" Version="15.1.12" />
     <PackageVersion Include="HotChocolate.Server" Version="10.5.5" />
-    <PackageVersion Include="HotChocolate.Types" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Types.CursorPagination" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Types.Mutations" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Types.NodaTime" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Types.Shared" Version="15.1.8" />
+    <PackageVersion Include="HotChocolate.Types" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Types.CursorPagination" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Types.Mutations" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Types.NodaTime" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Types.Shared" Version="15.1.12" />
     <PackageVersion Include="HotChocolate.Types.Sorting" Version="13.9.14" />
-    <PackageVersion Include="HotChocolate.Utilities" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Utilities.DependencyInjection" Version="15.1.8" />
-    <PackageVersion Include="HotChocolate.Validation" Version="15.1.8" />
-
+    <PackageVersion Include="HotChocolate.Utilities" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Utilities.DependencyInjection" Version="15.1.12" />
+    <PackageVersion Include="HotChocolate.Validation" Version="15.1.12" />
     <!-- Microsoft ASP.NET Core / EF Core packages -->
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="9.0.7" />
-
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.3" />
     <!-- Npgsql PostgreSQL provider -->
-    <PackageVersion Include="Npgsql" Version="9.0.3" />
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    
+    <PackageVersion Include="Npgsql" Version="10.0.1" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
     <!-- Other packages -->
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.3" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.0.3" />
   </ItemGroup>
 </Project>
